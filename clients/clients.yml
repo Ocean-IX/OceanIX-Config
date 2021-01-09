@@ -1,0 +1,9 @@
+clients:
+  - asn: 139882
+    ip:
+    - "10.0.0.11"
+    description: OceanIX Internet Exchange
+  - asn: 207740
+    ip:
+    - "10.0.0.12"
+    description: Youssef Hamed
