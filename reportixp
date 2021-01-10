@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "`date -u` Invoked reportixp Command via Shell" >> /opt/oceanixp/data/log/oceanixp/shell.log
+docker-compose -f /opt/oceanixp/yml/docker-compose.yml up reportixp
+echo "`date -u` OceanIXP ReportIXP Server Started" >> /opt/oceanixp/data/log/oceanixp/shell.log
