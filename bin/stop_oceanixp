@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "`date -u` Invoked Stop_OceanIXP Command via Shell" >> /opt/oceanixp/data/log/oceanixp/shell.log
+docker-compose -f /opt/oceanixp/yml/docker-compose.yml down
+echo "`date -u` OceanIXP Stopped" >> /opt/oceanixp/data/log/oceanixp/shell.log
