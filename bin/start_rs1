@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "`date -u` Invoked start_rs1 Command via Shell" >> /opt/oceanixp/data/log/oceanixp/shell.log
+docker-compose -f /opt/oceanixp/yml/docker-compose.yml up routeserver_1
+echo "`date -u` OceanIXP RouteServer 1 Started" >> /opt/oceanixp/data/log/oceanixp/shell.log
