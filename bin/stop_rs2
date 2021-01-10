@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "`date -u` Invoked stop_rs2 Command via Shell" >> /opt/oceanixp/data/log/oceanixp/shell.log
+docker-compose -f /opt/oceanixp/yml/docker-compose.yml down routeserver_2
+echo "`date -u` OceanIXP RouteServer 2 Stopped" >> /opt/oceanixp/data/log/oceanixp/shell.log
