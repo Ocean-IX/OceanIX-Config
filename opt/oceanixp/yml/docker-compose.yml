@@ -13,7 +13,6 @@ networks:
     ipam:
       config:
         - subnet: fd99::/64
-          gateway: fd99::1/64
 
 services:
   oceanix: 
@@ -27,7 +26,7 @@ services:
       - 9999:80
     volumes:
       - /opt/oceanixp/data:/config
-      - /opt/oceanixp/data/www:/app/public 
+      - /opt/oceanixp/www:/app/public 
       - /opt/oceanixp/logs/apache2/access.log:/var/log/apache2/access.log
       - /opt/oceanixp/logs/apache2/error.log:/var/log/apache2/error.log
 
@@ -96,7 +95,7 @@ services:
       - /opt/oceanixp/data/rs1/general.yml:/etc/arouteserver/general.yml
       - /opt/oceanixp/data/rs1/run.sh:/root/run.sh
       - /opt/oceanixp/data/rs1/run_birdwatcher_when_ready.sh:/root/run_birdwatcher_when_ready.sh
-      - /opt/oceanixp/data/logs/rs1/bird.log:/var/log/bird.log
+      - /opt/oceanixp/logs/rs1/bird.log:/var/log/bird.log
 
   routeserver_2:
     image: oceanixau/rs2.docker:latest
@@ -118,7 +117,7 @@ services:
       - /opt/oceanixp/data/rs2/general.yml:/etc/arouteserver/general.yml
       - /opt/oceanixp/data/rs2/run.sh:/root/run.sh
       - /opt/oceanixp/data/rs2/run_birdwatcher_when_ready.sh:/root/run_birdwatcher_when_ready.sh
-      - /opt/oceanixp/data/logs/rs2/bird.log:/var/log/bird.log
+      - /opt/oceanixp/data/rs2/bird.log:/var/log/bird.log
 
   alice_lg:
     image: pierky/alice-lg
@@ -151,7 +150,7 @@ services:
         ipv4_address: 10.10.1.10
     volumes:
       - /opt/oceanixp/data/bird/139882/bird.conf:/etc/bird/bird.conf
-      - /opt/oceanixp/data/logs/bird/139882/bird.log:/var/log/bird.log
+      - /opt/oceanixp/logs/bird/139882/bird.log:/var/log/bird.log
 
   as139882_ipv6:
     image: oceanixau/bird6.docker:latest
@@ -170,5 +169,5 @@ services:
         ipv6_address: fd99::10
     volumes:
       - /opt/oceanixp/data/bird/139882/bird6.conf:/etc/bird/bird6.conf
-      - /opt/oceanixp/data/logs/bird/139882/bird6.log:/var/log/bird.log
+      - /opt/oceanixp/logs/bird/139882/bird6.log:/var/log/bird.log
 
