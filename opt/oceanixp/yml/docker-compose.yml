@@ -51,7 +51,7 @@ services:
     ports:
      - 8880:80
 
- watchtower:
+  watchtower: 
    image: containrrr/watchtower
    container_name: OceanIX_Watchtower
    restart: unless-stopped
