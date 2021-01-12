@@ -15,41 +15,41 @@ networks:
         - subnet: fd99::/64
 
 services:
-  oceanix: 
-    image: oceanixau/www.docker:latest
-    container_name: OceanIX_Web
-    restart: unless-stopped
-    environment:
-      PUID: 1001
-      PGID: 1001
-    ports:
-      - 9999:80
-    volumes:
-      - /opt/oceanixp/data:/config
-      - /opt/oceanixp/www:/app/public 
-      - /opt/oceanixp/logs/apache2/access.log:/var/log/apache2/access.log
-      - /opt/oceanixp/logs/apache2/error.log:/var/log/apache2/error.log
+#  oceanix: 
+#    image: oceanixau/www.docker:latest
+#    container_name: OceanIX_Web
+#    restart: unless-stopped
+#    environment:
+#      PUID: 1001
+#      PGID: 1001
+#    ports:
+#      - 9999:80
+#    volumes:
+#      - /opt/oceanixp/data:/config
+#      - /opt/oceanixp/www:/app/public 
+#      - /opt/oceanixp/logs/apache2/access.log:/var/log/apache2/access.log
+#      - /opt/oceanixp/logs/apache2/error.log:/var/log/apache2/error.log
 
-  database:
-    image: oceanixau/mysql.docker:latest
-    container_name: OceanIX_DB
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: OceanIXAUPassword
-      PUID: 1001
-      PGID: 1001
-    volumes:
-      - /opt/oceanixp/data/mysql/data:/var/lib/mysql
-      - /opt/oceanixp/data/mysql/conf.d:/etc/mysql/conf.d
-    ports:
-      - 3306:3306
+#  database:
+#    image: oceanixau/mysql.docker:latest
+#    container_name: OceanIX_DB
+#    restart: unless-stopped
+#    environment:
+#      MYSQL_ROOT_PASSWORD: OceanIXAUPassword
+#      PUID: 1001
+#      PGID: 1001
+#    volumes:
+#      - /opt/oceanixp/data/mysql/data:/var/lib/mysql
+#      - /opt/oceanixp/data/mysql/conf.d:/etc/mysql/conf.d
+#    ports:
+#      - 3306:3306
 
-  adminer:
-    container_name: OceanIX_Adminer
-    image: clue/adminer
-    restart: unless-stopped
-    ports:
-     - 8880:80
+ # adminer:
+ #   container_name: OceanIX_Adminer
+ #   image: clue/adminer
+ #   restart: unless-stopped
+ #   ports:
+ #    - 8880:80
 
   watchtower: 
    image: containrrr/watchtower
@@ -119,22 +119,22 @@ services:
       - /opt/oceanixp/data/rs2/run_birdwatcher_when_ready.sh:/root/run_birdwatcher_when_ready.sh
       - /opt/oceanixp/data/rs2/bird.log:/var/log/bird.log
 
-  alice_lg:
-    image: pierky/alice-lg
-    container_name: OceanIX_LG
-    restart: unless-stopped
-    environment:
-      PUID: 1001
-      PGID: 1001
-    networks:
-      peering_v4:
-        ipv4_address: 10.10.1.4
-      peering_v6:
-        ipv6_address: fd99::3333
-    volumes:
-      - /opt/oceanixp/data/alice-lg/alice.conf:/etc/alice-lg/alice.conf
-    ports:
-      - 8080:80
+#  alice_lg:
+#    image: pierky/alice-lg
+#    container_name: OceanIX_LG
+#    restart: unless-stopped
+#    environment:
+#      PUID: 1001
+#      PGID: 1001
+#    networks:
+#      peering_v4:
+#        ipv4_address: 10.10.1.4
+#      peering_v6:
+#        ipv6_address: fd99::3333
+#    volumes:
+#      - /opt/oceanixp/data/alice-lg/alice.conf:/etc/alice-lg/alice.conf
+#    ports:
+#      - 8080:80
 
   as139882_ipv4:
     image: oceanixau/bird4.docker:latest
