@@ -17,6 +17,7 @@
         echo "start_zerotier - Start ZeroTier One Service"
         echo "start_openvpn - Start OpenVPN Service"
         echo "venv - Prepare Virtual Environment"
+        echo "build_ixp - Build all docker files locally"
         echo "asn - List all Connected ASNs (+ json file output @ /opt/oceanixp/json/asn.json )"
         echo "stop_oceanixp - Shutdown all OceanIX CTs"
         echo "create - Manually Create New AS/IP/User"
