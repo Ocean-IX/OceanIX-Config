@@ -9,59 +9,57 @@
         echo -e "\e[32m#+#    #+# #+#    #+# #+#        #+#     #+# #+#   #+#+#     #+#     #+#    #+#      \e[1m"
         echo -e "\e[32m########   ########  ########## ###     ### ###    #### ########### ###    ###       \e[1m"
         echo -e "\e[0m"
-        echo ":: Preparing to Fetch Git Repositories for OceanIXP ::
+        echo ":: Preparing to Fetch Git Repositories for OceanIXP ::"
         sleep 3
+        rm -rf /root/build_ixp
         mkdir /root/build_ixp
         echo "Retrieve Files: bird4.docker"
-        git clone --single-branch --branch master https://github.com/Ocean-IX/bird4.docker.git /root/build_ixp/bird4.docker
+        /usr/bin/git clone --single-branch --branch master https://github.com/Ocean-IX/bird4.docker.git /root/build_ixp/bird4.docker
         echo "Retrieve Files: bird6.docker"
-        git clone --single-branch --branch master https://github.com/Ocean-IX/bird6.docker.git /root/build_ixp/bird6.docker
+        /usr/bin/git clone --single-branch --branch master https://github.com/Ocean-IX/bird6.docker.git /root/build_ixp/bird6.docker
         echo "Retrieve Files: mysql.docker"
-        git clone --single-branch --branch master https://github.com/Ocean-IX/mysql.docker.git /root/build_ixp/mysql.docker
+        /usr/bin/git clone --single-branch --branch master https://github.com/Ocean-IX/mysql.docker.git /root/build_ixp/mysql.docker
         echo "Retrieve Files: www.docker"
-        git clone --single-branch --branch master https://github.com/Ocean-IX/www.docker.git /root/build_ixp/www.docker
+        /usr/bin/git clone --single-branch --branch master https://github.com/Ocean-IX/www.docker.git /root/build_ixp/www.docker
         echo "Retrieve Files: rs1.docker"
-        git clone --single-branch --branch master https://github.com/Ocean-IX/rs1.docker.git /root/build_ixp/rs1.docker
+        /usr/bin/git clone --single-branch --branch master https://github.com/Ocean-IX/rs1.docker.git /root/build_ixp/rs1.docker
         echo "Retrieve Files: rs2.docker"
-        git clone --single-branch --branch master https://github.com/Ocean-IX/rs2.docker.git /root/build_ixp/rs2.docker
+        /usr/bin/git clone --single-branch --branch master https://github.com/Ocean-IX/rs2.docker.git /root/build_ixp/rs2.docker
         echo "Retrieve Files: bird.rs.docker"
-        git clone --single-branch --branch master https://github.com/Ocean-IX/bird.rs.docker.git /root/build_ixp/bird.rs.docker
-        echo ":: Preparing to Build Local Image Repository for OceanIXP ::
+        /usr/bin/git clone --single-branch --branch master https://github.com/Ocean-IX/bird.rs.docker.git /root/build_ixp/bird.rs.docker
+        echo ":: Preparing to Build Local Image Repository for OceanIXP ::"
         sleep 3
         echo "Building Local Image: bird.rs.docker"
         sleep 1
-        docker build --tag=oceanixp/bird.rs.docker /root/build_ixp/bird.rs.docker/.
+        docker build  -t oceanixp/bird.rs.docker /root/build_ixp/bird.rs.docker/
         echo "Build Complete"
         sleep 1
         echo "Building Local Image: rs1.docker"
         sleep 1
-        docker build --tag=oceanixp/rs1.docker /root/build_ixp/rs1.docker/.
+        docker build  -t oceanixp/rs1.docker /root/build_ixp/rs1.docker/
         echo "Build Complete"
         sleep 1
         echo "Building Local Image: rs2.docker"
         sleep 1
-        docker build --tag=oceanixp/rs2.docker /root/build_ixp/rs2.docker/.
+        docker build  -t oceanixp/rs2.docker /root/build_ixp/rs2.docker/
         echo "Build Complete"
         sleep 1
         echo "Building Local Image: www.docker"
         sleep 1
-        docker build --tag=oceanixp/www.docker /root/build_ixp/www.docker/.
+        docker build  -t oceanixp/www.docker /root/build_ixp/www.docker/
         echo "Build Complete"
         sleep 1
         echo "Building Local Image: mysql.docker"
         sleep 1
-        docker build --tag=oceanixp/mysql.docker /root/build_ixp/mysql.docker/.
+        docker build  -t oceanixp/mysql.docker /root/build_ixp/mysql.docker/
         echo "Build Complete"
         sleep 1
         echo "Building Local Image: bird4.docker"
         sleep 1
-        docker build --tag=oceanixp/bird4.docker /root/build_ixp/bird4.docker/.
+        docker build  -t oceanixp/bird4.docker /root/build_ixp/bird4.docker/
         echo "Build Complete"
         sleep 1
         echo "Building Local Image: bird6.docker"
         sleep 1
-        docker build --tag=oceanixp/bird6.docker /root/build_ixp/bird6.docker/.
-        echo "Build Complete"
+        docker build  -t oceanixp/bird6.docker /root/build_ixp/bird6.docker/
         echo "Image Repository Build Complete"
-        
-        
