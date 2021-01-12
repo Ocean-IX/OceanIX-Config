@@ -16,7 +16,7 @@ networks:
 
 services:
 #  oceanix: 
-#    image: oceanixau/www.docker:latest
+#    image: oceanixau/www.docker
 #    container_name: OceanIX_Web
 #    restart: unless-stopped
 #    environment:
@@ -31,7 +31,7 @@ services:
 #      - /opt/oceanixp/logs/apache2/error.log:/var/log/apache2/error.log
 
 #  database:
-#    image: oceanixau/mysql.docker:latest
+#    image: oceanixau/mysql.docker
 #    container_name: OceanIX_DB
 #    restart: unless-stopped
 #    environment:
@@ -73,7 +73,7 @@ services:
       - /opt/oceanixp/data/portainer/:/data
 
   routeserver_1:
-    image: oceanixau/rs1.docker:latest
+    image: oceanixau/rs1.docker
     container_name: OceanIX_RS1
     restart: unless-stopped
     networks:
@@ -98,7 +98,7 @@ services:
       - /opt/oceanixp/logs/rs1/bird.log:/var/log/bird.log
 
   routeserver_2:
-    image: oceanixau/rs2.docker:latest
+    image: oceanixau/rs2.docker
     container_name: OceanIX_RS2
     restart: unless-stopped
     networks:
@@ -137,7 +137,7 @@ services:
 #      - 8080:80
 
   as139882_ipv4:
-    image: oceanixau/bird4.docker:latest
+    image: oceanixau/bird4.docker
     container_name: as139882_ipv4
     restart: unless-stopped
     environment:
@@ -153,7 +153,7 @@ services:
       - /opt/oceanixp/logs/bird/139882/bird.log:/var/log/bird.log
 
   as139882_ipv6:
-    image: oceanixau/bird6.docker:latest
+    image: oceanixau/bird6.docker
     container_name: as139882_ipv6
     restart: unless-stopped
     environment:
