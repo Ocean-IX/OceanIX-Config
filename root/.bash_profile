@@ -30,12 +30,12 @@ UPTIME=`printf "%d days, %02dh%02dm%02ds" "$days" "$hours" "$mins" "$secs"`
         echo -e "\e[0m"
         echo -e "\e[1;35mSystem Uptime: $UPTIME \e[1m\e[0m"
         echo "IPv4: $v4Addr - IPv6: $v6Addr"
-if [ ! "${RS1Status}" ]; then
+if [ "${RS1Status}" ]; then
   echo -e "Route Server 1 Status: \e[1;32mONLINE\e[1m\e[0m"
 else
   echo -e "Route Server 1 Status: \e[1;31mOFFLINE\e[1m\e[0m"
 fi
-if [ ! "${RS2Status}" ]; then
+if [ "${RS2Status}" ]; then
   echo -e "Route Server 2 Status: \e[1;32mONLINE\e[1m\e[0m"
 else
   echo -e "Route Server 2 Status: \e[1;31mOFFLINE\e[1m\e[0m"
