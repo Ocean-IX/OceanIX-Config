@@ -203,4 +203,24 @@ services:
     volumes:
       - /opt/oceanixp/data/bird/139882/bird6.conf:/etc/bird/bird6.conf
       - /opt/oceanixp/logs/bird/139882/bird6.log:/var/log/bird.log
+      
+#  reportixp:
+#    image: oceanixau/reportixp.docker
+#    container_name: OceanIX_ReportIXP
+#    restart: unless-stopped
+#    environment:
+#      PUID: 1001
+#      PGID: 1001
+#    cap_add:
+#      - ALL
+#    ports:
+#    - "9998"
+#    networks:
+#      peering_v4: 
+#        ipv4_address: 10.10.1.254
+#      peering_v6:
+#        ipv6_address: fd83:7684:f21d:1337:c1::9999
+#    volumes:
+#      - /opt/oceanixp/data/reportixp/www:/root/app
+#      - /opt/oceanixp/data/reportixp/data:/root/app/data
 
