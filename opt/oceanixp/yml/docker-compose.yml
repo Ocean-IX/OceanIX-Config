@@ -82,7 +82,7 @@ services:
       peering_v4:
         ipv4_address: 10.10.1.2
       peering_v6:
-        ipv6_address: 0000:0000:0000:0000::100
+        ipv6_address: 0000:0000:0000:0000:c1::100
     environment:
       SETUP_AND_CONFIGURE_AROUTESERVER: 1
       PUID: 1001
@@ -146,7 +146,7 @@ services:
       - ALL
     networks:
       peering_v6:
-        ipv6_address: 0000:0000:0000:0000::1000
+        ipv6_address: 0000:0000:0000:0000:c1::1000
     volumes:
       - /opt/oceanixp/data/bird/139882/bird6.conf:/etc/bird/bird6.conf
       - /opt/oceanixp/logs/bird/139882/bird6.log:/var/log/bird.log
