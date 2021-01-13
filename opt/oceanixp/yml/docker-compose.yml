@@ -10,9 +10,11 @@ networks:
     enable_ipv6: true
     driver_opts:
       com.docker.network.enable_ipv6: "true"
+      com.docker.network.bridge.name: "docker-br0"
     ipam:
       config:
         - subnet: 0000:0000:0000:0000::/64
+          ip_range: 0000:0000:0000:0000:c1::/80
 
 services:
 #  oceanix: 
