@@ -1,0 +1,160 @@
+version: "2.1"
+
+networks:
+  peering_v4:
+    ipam:
+      config:
+        - subnet: 10.10.1.0/24
+          gateway: 10.10.1.1
+  peering_v6:
+    enable_ipv6: true
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    ipam:
+      config:
+        - subnet: 0000:0000:0000:0000::/64
+
+services:
+#  oceanix: 
+#    image: oceanixau/www.docker
+#    container_name: OceanIX_Web
+#    restart: unless-stopped
+#    environment:
+#      PUID: 1001
+#      PGID: 1001
+#    ports:
+#      - 9999:80
+#    volumes:
+#      - /opt/oceanixp/data:/config
+#      - /opt/oceanixp/www:/app/public 
+#      - /opt/oceanixp/logs/apache2/access.log:/var/log/apache2/access.log
+#      - /opt/oceanixp/logs/apache2/error.log:/var/log/apache2/error.log
+
+#  database:
+#    image: oceanixau/mysql.docker
+#    container_name: OceanIX_DB
+#    restart: unless-stopped
+#    environment:
+#      MYSQL_ROOT_PASSWORD: OceanIXAUPassword
+#      PUID: 1001
+#      PGID: 1001
+#    volumes:
+#      - /opt/oceanixp/data/mysql/data:/var/lib/mysql
+#      - /opt/oceanixp/data/mysql/conf.d:/etc/mysql/conf.d
+#    ports:
+#      - 3306:3306
+
+ # adminer:
+ #   container_name: OceanIX_Adminer
+ #   image: clue/adminer
+ #   restart: unless-stopped
+ #   ports:
+ #    - 8880:80
+
+  watchtower: 
+   image: containrrr/watchtower
+   container_name: OceanIX_Watchtower
+   restart: unless-stopped
+   volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+   command: --interval 30
+
+  portainer: 
+    image: portainer/portainer-ce
+    container_name: OceanIX_Portainer
+    restart: unless-stopped
+    environment:
+      PUID: 1001
+      PGID: 1001
+    ports: 
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/oceanixp/data/portainer/:/data
+
+  routeserver_1:
+    image: oceanixau/rs1.docker
+    container_name: OceanIX_RS1
+    restart: unless-stopped
+    networks:
+      peering_v4:
+        ipv4_address: 10.10.1.2
+      peering_v6:
+        ipv6_address: 0000:0000:0000:0000::100
+    environment:
+      SETUP_AND_CONFIGURE_AROUTESERVER: 1
+      PUID: 1001
+      PGID: 1001
+    sysctls:
+      net.ipv6.conf.all.disable_ipv6: 0
+      net.ipv6.conf.all.forwarding: 1
+    volumes:
+      - /opt/oceanixp/data/rs1/birdwatcher.conf:/etc/birdwatcher/birdwatcher.conf
+      - /opt/oceanixp/data/rs1/bird.conf:/etc/bird/bird.conf
+      - /opt/oceanixp/data/clients/clients.yml:/root/clients.yml
+      - /opt/oceanixp/data/rs1/general.yml:/etc/arouteserver/general.yml
+      - /opt/oceanixp/data/rs1/run.sh:/root/run.sh
+      - /opt/oceanixp/data/rs1/run_birdwatcher_when_ready.sh:/root/run_birdwatcher_when_ready.sh
+      - /opt/oceanixp/logs/rs1/bird.log:/var/log/bird.log
+
+#  alice_lg:
+#    image: pierky/alice-lg
+#    container_name: OceanIX_LG
+#    restart: unless-stopped
+#    environment:
+#      PUID: 1001
+#      PGID: 1001
+#    networks:
+#      peering_v4:
+#        ipv4_address: 10.10.1.4
+#      peering_v6:
+#        ipv6_address: fd99::3333
+#    volumes:
+#      - /opt/oceanixp/data/alice-lg/alice.conf:/etc/alice-lg/alice.conf
+#    ports:
+#      - 8080:80
+
+#  as139882_ipv4:
+#    image: oceanixau/bird4.docker
+#    container_name: as139882_ipv4
+#    restart: unless-stopped
+#    environment:
+#      PUID: 1001
+#      PGID: 1001
+#    cap_add:
+#      - ALL
+#    networks:
+#      peering_v4:
+#        ipv4_address: 10.10.1.10
+#    volumes:
+#      - /opt/oceanixp/data/bird/139882/bird.conf:/etc/bird/bird.conf
+#      - /opt/oceanixp/logs/bird/139882/bird.log:/var/log/bird.log
+
+  as139882_ipv6:
+    image: oceanixau/bird6.docker
+    container_name: as139882_ipv6
+    restart: unless-stopped
+    environment:
+      PUID: 1001
+      PGID: 1001
+    sysctls:
+      net.ipv6.conf.all.disable_ipv6: 0
+      net.ipv6.conf.all.forwarding: 1
+    cap_add:
+      - ALL
+    networks:
+      peering_v6:
+        ipv6_address: 0000:0000:0000:0000::1000
+    volumes:
+      - /opt/oceanixp/data/bird/139882/bird6.conf:/etc/bird/bird6.conf
+      - /opt/oceanixp/logs/bird/139882/bird6.log:/var/log/bird.log
+      
+  ipv6nat:
+    container_name: ipv6nat
+    restart: always
+    image: robbertkl/ipv6nat
+    privileged: true
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /lib/modules:/lib/modules:ro
