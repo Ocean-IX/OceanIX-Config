@@ -10,13 +10,27 @@ networks:
     enable_ipv6: true
     driver_opts:
       com.docker.network.enable_ipv6: "true"
-      com.docker.network.bridge.name: "docker-br0"
+      com.docker.network.bridge.enable_icc: "true"
+      com.docker.network.bridge.enable_ip_forwarding: "true"
+      com.docker.network.bridge.enable_ip_masquerade: "true
     ipam:
       config:
-        - subnet: 0000:0000:0000:0000::/64
-          ip_range: 0000:0000:0000:0000:c1::/80
+        - subnet: fd83:7684:f21d:1337::/64
+          ip_range: fd83:7684:f21d:1337:c1::/80
 
 services:
+
+  ipv6nat:
+    container_name: OceanIX_NATv6
+    restart: always
+    image: robbertkl/ipv6nat
+    privileged: true
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /lib/modules:/lib/modules:ro
+      
+      
 #  oceanix: 
 #    image: oceanixau/www.docker
 #    container_name: OceanIX_Web
@@ -82,14 +96,11 @@ services:
       peering_v4:
         ipv4_address: 10.10.1.2
       peering_v6:
-        ipv6_address: 0000:0000:0000:0000:c1::100
+        ipv6_address: fd83:7684:f21d:1337::100
     environment:
       SETUP_AND_CONFIGURE_AROUTESERVER: 1
       PUID: 1001
       PGID: 1001
-    sysctls:
-      net.ipv6.conf.all.disable_ipv6: 0
-      net.ipv6.conf.all.forwarding: 1
     volumes:
       - /opt/oceanixp/data/rs1/birdwatcher.conf:/etc/birdwatcher/birdwatcher.conf
       - /opt/oceanixp/data/rs1/bird.conf:/etc/bird/bird.conf
@@ -139,14 +150,11 @@ services:
     environment:
       PUID: 1001
       PGID: 1001
-    sysctls:
-      net.ipv6.conf.all.disable_ipv6: 0
-      net.ipv6.conf.all.forwarding: 1
     cap_add:
       - ALL
     networks:
       peering_v6:
-        ipv6_address: 0000:0000:0000:0000:c1::1000
+        ipv6_address: fd83:7684:f21d:1337:c1::1000
     volumes:
       - /opt/oceanixp/data/bird/139882/bird6.conf:/etc/bird/bird6.conf
       - /opt/oceanixp/logs/bird/139882/bird6.log:/var/log/bird.log
