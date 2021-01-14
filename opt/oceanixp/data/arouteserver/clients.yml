@@ -1,0 +1,8 @@
+asns:
+  AS139882:
+    as_sets:
+    - AS-OCEANIX
+clients:
+- asn: 139882
+  ip:
+  - 2a0a:6040:d1::1
