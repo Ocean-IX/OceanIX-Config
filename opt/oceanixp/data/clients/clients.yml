@@ -1,5 +1,0 @@
-clients:
-  - asn: 139882
-    ip:
-    - "10.10.1.10"
-    description: OceanIX Internet Exchange
