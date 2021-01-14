@@ -12,7 +12,7 @@ networks:
       com.docker.network.enable_ipv6: "true"
       com.docker.network.bridge.enable_icc: "true"
       com.docker.network.bridge.enable_ip_forwarding: "true"
-      com.docker.network.bridge.enable_ip_masquerade: "true
+      com.docker.network.bridge.enable_ip_masquerade: "true"
     ipam:
       config:
         - subnet: fd83:7684:f21d:1337::/64
