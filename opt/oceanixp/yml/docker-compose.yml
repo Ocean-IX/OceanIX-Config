@@ -34,7 +34,8 @@ services:
     container_name: ZeroTier
     image: oceanixau/zerotier.docker
     environment:
-      - NETWORK_ID=17d709436c92e9ff
+      - NETWORK_ID=0000000000000000
+      - NETWORK_REGIONAL=93afae59635b25f9
     volumes:
       - /opt/oceanixp/data/zerotier:/config'
     network_mode: host
