@@ -31,7 +31,7 @@ services:
       - /lib/modules:/lib/modules:ro
       
   routeserver:
-    build: build_ixp/routeserver.docker/.
+    build: build_ixp/bird.rs.docker/.
     container_name: RouteServer
     restart: unless-stopped
     networks:
