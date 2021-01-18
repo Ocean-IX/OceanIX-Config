@@ -30,68 +30,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /lib/modules:/lib/modules:ro
       
-  zerotier:
-    container_name: ZeroTier
-    build: build_ixp/zerotier.docker-multi/.
-    environment:
-      - NETWORK_ID=0000000000000000
-      - NETWORK_REGIONAL=93afae59635b25f9
-    volumes:
-      - /opt/oceanixp/data/zerotier:/config'
-    network_mode: host
-    privileged: true
-    restart: always
-    
-%  wireguard:
-%  container_name: WireGuard
-%  build: build_ixp/wireguard.docker/.
-%  volumes:
-%   - /opt/oceanixp/data/wireguard:/etc/wireguard
-%   networks:
-%      peering_v4:
-%        ipv4_address: 10.10.1.4
-%      peering_v6:
-%        ipv6_address: fd83:7684:f21d:1337::4
-%  ports:
-%   - 5555:5555/udp
-%  restart: unless-stopped
-%  cap_add:
-%   - NET_ADMIN
-%   - SYS_MODULE
-   
-^openvpn:
-^  container_name: OpenVPN
-^  build: build_ixp/openvpn.docker/.
-^  volumes:
-^   - /opt/oceanixp/data/openvpn:/etc/openvpn
-^   networks:
-^      peering_v4:
-^        ipv4_address: 10.10.1.5
-^      peering_v6:
-^        ipv6_address: fd83:7684:f21d:1337::5
-^  ports:
-^   - 1194:1194/udp
-^  restart: unless-stopped
-^  cap_add:
-^   - NET_ADMIN
-^   - SYS_MODULE
-
-
-
-&  bgpControl:
-&    build: build_ixp/bird.rs.docker/.
-&    container_name: BGP.Control
-&    restart: unless-stopped
-&    network_mode: host
-&    privileged: true
-&    restart: always
-&    volumes:
-&      - /opt/oceanixp/data/bgp/bird.conf:/etc/bird/bird.conf
-&      - /opt/oceanixp/data/bgp/bird6.conf:/etc/bird/bird6.conf
-&      - /opt/oceanixp/logs/bgp/bird.log:/var/log/bird.log
-&      - /opt/oceanixp/logs/bgp/bird6.log:/var/log/bird6.log
-
-
   routeserver:
     build: build_ixp/routeserver.docker/.
     container_name: RouteServer
@@ -112,7 +50,6 @@ services:
       - /opt/oceanixp/logs/routeserver/bird.log:/var/log/bird.log
       - /opt/oceanixp/logs/routeserver/bird6.log:/var/log/bird6.log
       
-      
   arouteserver:
     build: build_ixp/rs.gen.docker/.
     container_name: arouteserver
@@ -129,23 +66,6 @@ services:
       - /opt/oceanixp/data/arouteserver/general.yml:/etc/arouteserver/general.yml
       - /opt/oceanixp/logs/arouteserver/bird.log:/var/log/bird.log
 
-@  alice_lg:
-@    image: pierky/alice-lg
-@    container_name: alice-lg
-@    restart: unless-stopped
-@    environment:
-@      PUID: 1001
-@      PGID: 1001
-@    networks:
-@      peering_v4:
-@        ipv4_address: 10.10.1.3
-@      peering_v6:
-@        ipv6_address: fd83:7684:f21d:1337::3
-@    volumes:
-@      - /opt/oceanixp/data/alice-lg/alice.conf:/etc/alice-lg/alice.conf
-@    ports:
-@      - 8080:80
-      
   watchtower: 
    image: containrrr/watchtower
    container_name: Watchtower
@@ -166,24 +86,3 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /opt/oceanixp/data/portainer/:/data
-      
-#  reportixp:
-#    build: build_ixp/reportixp.docker/.
-#    container_name: OceanIX_ReportIXP
-#    restart: unless-stopped
-#    environment:
-#      PUID: 1001
-#      PGID: 1001
-#    cap_add:
-#      - ALL
-#    ports:
-#    - "9998"
-#    networks:
-#      peering_v4: 
-#        ipv4_address: 10.10.1.254
-#      peering_v6:
-#        ipv6_address: fd83:7684:f21d:1337:c1::9999
-#    volumes:
-#      - /opt/oceanixp/data/reportixp/www:/root/app
-#      - /opt/oceanixp/data/reportixp/data:/root/app/data
-
