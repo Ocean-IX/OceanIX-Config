@@ -30,21 +30,21 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /lib/modules:/lib/modules:ro
       
-!  zerotier:
-!    container_name: ZeroTier
-!    image: oceanixau/zerotier.docker:multi
-!    environment:
-!      - NETWORK_ID=0000000000000000
-!      - NETWORK_REGIONAL=93afae59635b25f9
-!    volumes:
-!      - /opt/oceanixp/data/zerotier:/config'
-!    network_mode: host
-!    privileged: true
-!    restart: always
+  zerotier:
+    container_name: ZeroTier
+    build: build_ixp/zerotier.docker-multi/.
+    environment:
+      - NETWORK_ID=0000000000000000
+      - NETWORK_REGIONAL=93afae59635b25f9
+    volumes:
+      - /opt/oceanixp/data/zerotier:/config'
+    network_mode: host
+    privileged: true
+    restart: always
     
 %  wireguard:
 %  container_name: WireGuard
-%  image: oceanixau/wireguard.docker
+%  build: build_ixp/wireguard.docker/.
 %  volumes:
 %   - /opt/oceanixp/data/wireguard:/etc/wireguard
 %   networks:
@@ -61,7 +61,7 @@ services:
    
 ^openvpn:
 ^  container_name: OpenVPN
-^  image: oceanixau/openvpn.docker
+^  build: build_ixp/openvpn.docker/.
 ^  volumes:
 ^   - /opt/oceanixp/data/openvpn:/etc/openvpn
 ^   networks:
@@ -79,7 +79,7 @@ services:
 
 
 &  bgpControl:
-&    image: oceanixau/bird.rs.docker
+&    build: build_ixp/bird.rs.docker/.
 &    container_name: BGP.Control
 &    restart: unless-stopped
 &    network_mode: host
@@ -93,7 +93,7 @@ services:
 
 
   routeserver:
-    image: oceanixau/routeserver.docker
+    build: build_ixp/routeserver.docker/.
     container_name: RouteServer
     restart: unless-stopped
     networks:
@@ -114,7 +114,7 @@ services:
       
       
   arouteserver:
-    image: oceanixau/rs.gen.docker
+    build: build_ixp/rs.gen.docker/.
     container_name: arouteserver
     restart: unless-stopped
     network_mode: host
@@ -168,7 +168,7 @@ services:
       - /opt/oceanixp/data/portainer/:/data
       
 #  reportixp:
-#    image: oceanixau/reportixp.docker
+#    build: build_ixp/reportixp.docker/.
 #    container_name: OceanIX_ReportIXP
 #    restart: unless-stopped
 #    environment:
