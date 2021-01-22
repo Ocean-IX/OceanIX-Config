@@ -34,19 +34,15 @@ services:
     build: build_ixp/bird.rs.docker/.
     container_name: RouteServer
     restart: unless-stopped
-    networks:
-      peering_v4:
-        ipv4_address: 10.10.1.2
-      peering_v6:
-        ipv6_address: fd83:7684:f21d:1337::2
-    ports:
-      - 179:179
+    network_mode: host
     environment:
       PUID: 1001
       PGID: 1001
+      IPV4_ENABLE: disabled
+      IPV6_ENABLE: enabled
     volumes:
-      - /opt/oceanixp/data/routeserver/bird.conf:/etc/bird/bird.conf
-      - /opt/oceanixp/data/routeserver/bird6.conf:/etc/bird/bird6.conf
+      - /opt/oceanixp/data/routeserver/bird.conf:/usr/local/etc/bird.conf
+      - /opt/oceanixp/data/routeserver/bird6.conf:/usr/local/etc/bird6.conf
       - /opt/oceanixp/logs/routeserver/bird.log:/var/log/bird.log
       - /opt/oceanixp/logs/routeserver/bird6.log:/var/log/bird6.log
       
